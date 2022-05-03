@@ -8,10 +8,8 @@ services:
     depends_on:
       backend:
         condition: service_healthy
-    # Os `healthcheck` devem garantir que a aplicação
-    # está operacional, antes de liberar o container
     healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
+      test: ["CMD", "lsof", "-t", "-i:3000"] 
       timeout: 10s
       retries: 5
   backend:
@@ -24,51 +22,26 @@ services:
         condition: service_healthy
     environment:
       - PORT=3001
-      # Os dados abaixo se referem ao container `db`
-      # Dica: Relembre aqui da comunicação interna entre containers
       - DB_USER=root
       - DB_PASS=123456
       - DB_HOST=db
       - DB_NAME=TRYBE_FUTEBOL_CLUBE
       - DB_PORT=3306
     healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
+      test: ["CMD", "lsof", "-t", "-i:3001"]
       timeout: 10s
       retries: 5
   db:
     image: mysql:8.0.21
-    # imagem do mysql na versão específica 8.0.21
     container_name: db
-    # Garante um nome específico efitando a criação de nomes alheatórios e facilitando o referenciamento do container dentro do código
     ports:
       - 3002:3306 
-      # 3002 é a porta que vamos usar e a 3066 é a que o docker entrega como padrão
     environment:
       - MYSQL_ROOT_PASSWORD=123456
-      # senha do mysql
-      # ??? É aqui que a senha é setada? ou só é passada para o docker?
     restart: 'always'
-    # restarta automaticamente se o Mysql quebrar por algum motivo
     healthcheck:
-    # comando novo que valida um serviço 
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
-      # executa no CMD (terminal) e verifica no local host se o seu mysql está rodando
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
-      # intervalo que esse comando é rodado
       retries: 5
     cap_add:
-      - SYS_NICE # Deve omitir alertas menores
-    # para subir esse banco de dado voce^tem que acessar a pasta app pelo terminal:
-    # 'cd app'
-    # e dar um:
-    # 'docker-compose up'
-    # no package.json já tem um script para isso o :
-    #  "compose:up": "(cd app && docker-compose up -d --build)",
-    # sendo que o -d é um parametro para rodar o docker compose em segundo plano sem ficar printando os logs na tela
-    # e o --build é para sempre forçar o build (a rebuildagem) do docker file o que garante que as modificações sejam sempre implementadas nas nossas imagens
-    #  "compose:down": "(cd app && docker-compose down --remove-orphans)"
-    # derruba o container quando você quiser finalizar a aplicação
-    # e finalmente o:
-    #  "compose:logs": "(cd app && docker_compose logs)"
-    # que da os logs de todas as aplicações seja lá o que isso queira dizer
-    
+      - SYS_NICE 
