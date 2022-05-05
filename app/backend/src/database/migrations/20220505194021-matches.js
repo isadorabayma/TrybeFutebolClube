@@ -11,7 +11,13 @@ module.exports = {
         },
         home_team: {
           type: Sequelize.INTEGER,
-          allowNull: false
+          allowNull: false,
+          references: {
+            model: 'Teams',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
         },
         home_team_goals: {
           type: Sequelize.INTEGER,
@@ -19,7 +25,13 @@ module.exports = {
         },
         away_team: {
           type: Sequelize.INTEGER,
-          allowNull: false
+          allowNull: false,
+          references: {
+            model: 'Teams',
+            key: 'id'
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
         },
         away_team_goals: {
           type: Sequelize.INTEGER,
@@ -33,11 +45,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    await queryInterface.dropTable('matches');
   }
 };
