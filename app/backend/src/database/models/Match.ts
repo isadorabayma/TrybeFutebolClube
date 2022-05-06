@@ -1,9 +1,12 @@
+// import { Model, DataTypes, ForeignKey } from 'sequelize';
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
 
 class Match extends Model {
   public id!: number;
 
+  // public homeTeam!: ForeignKey<Team['id']> ;
+  // https://sequelize.org/docs/v6/other-topics/typescript/
   public homeTeam!: number;
 
   public homeTeamGoals!: number;

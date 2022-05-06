@@ -1,10 +1,15 @@
-import { Model, DataTypes } from 'sequelize';
+import { Association, Model, DataTypes } from 'sequelize';
 import db from '.';
+import Match from './Match';
 
 class Team extends Model {
   public id!: number;
 
   public teamName!: string;
+
+  declare static associations: {
+    projects: Association<Team, Match>;
+  };
 }
 
 Team.init({
@@ -25,9 +30,7 @@ Team.init({
   timestamps: false,
 });
 
-// Teams.associate = (models) => {
-//   Teams.hasMany(models.Matches, { foreignKey: 'home_team', as: 'home_team' });
-//   Teams.hasMany(models.Matches, { foreignKey: 'away_team', as: 'away_team' });
-// };
+Team.hasMany(Match, { sourceKey: 'id', foreignKey: 'homeTeam', as: 'homeMatches' });
+Team.hasMany(Match, { sourceKey: 'id', foreignKey: 'awayTeam', as: 'awayMatches' });
 
 export default Team;
