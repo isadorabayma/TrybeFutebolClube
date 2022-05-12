@@ -3,16 +3,16 @@ import LoginService from '../service/login';
 
 export default class LoginController {
   constructor(
-    private loginService : LoginService,
+    public atribut: string,
   ) {}
 
-  public login = async (req: Request, res: Response, next: NextFunction): Promise<
-  Response | void> => {
+  public static async login(req: Request, res: Response, next: NextFunction): Promise<
+  Response | void> {
     try {
       const { email } = req.body;
       // const { email, password } = req.body;
 
-      const user = await this.loginService.findUser(email);
+      const user = await LoginService.findUser(email);
 
       // const token = await this.authService.authenticate(username, password);
       // if (!token) {
@@ -25,5 +25,9 @@ export default class LoginController {
     } catch (e) {
       next(e);
     }
-  };
+  }
+
+  public log(): void {
+    console.log(this.atribut);
+  }
 }

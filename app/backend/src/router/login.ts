@@ -1,18 +1,15 @@
 import * as express from 'express';
-import LoginService from '../service/login';
 import LoginController from '../controller/login';
-import User from '../database/models/User';
 
 const loginRouter = express.Router();
-
-const loginService = new LoginService(User);
-const loginController = new LoginController(loginService);
+const LoginInstence = new LoginController('test');
 
 loginRouter.post(
   '/login',
   // LoginMiddleware.emailValidation,
   // LoginMiddleware.passwordValidation,
-  loginController.login,
+  LoginController.login,
+  LoginInstence.log,
 );
 
 // loginRouter.get('/', LoginController.getRole);
