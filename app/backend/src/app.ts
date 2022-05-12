@@ -1,14 +1,18 @@
 import * as express from 'express';
-import { copyFileSync } from 'fs';
+import loginRouter from './router/login';
+// import { copyFileSync } from 'fs';
 
 class App {
   public app: express.Express;
+
+  public router = loginRouter;
   // ...
 
   constructor() {
     // ...
     this.app = express();
     this.config();
+    this.app.use('/', this.router);
     // ...
   }
 
@@ -26,7 +30,7 @@ class App {
 
   // ...
   public start(PORT: string | number):void {
-    this.app.listen(PORT, () => console.log(`is listenning at ${PORT}`))
+    this.app.listen(PORT, () => console.log(`is listenning at ${PORT}`));
   }
 }
 

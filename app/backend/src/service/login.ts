@@ -1,9 +1,14 @@
-import { Iuser } from '../interfaces/Iuser';
-import User from '../models/User';
+import { Iuser } from '../database/interfaces/Iuser';
 
 export default class LoginService {
-  static async findUser(email: string): Promise<Iuser> {
-    const user = await User.findOne({ where: { email } });
+  constructor(
+    private userModel : any,
+  ) {}
+
+  public static async findUser(email: string): Promise<Iuser> {
+    const user = await this.
+    // const user = await this.user.findOne({ where: { email } });
     return user as Iuser;
   }
 }
+

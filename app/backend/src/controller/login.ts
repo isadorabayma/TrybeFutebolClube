@@ -3,12 +3,14 @@ import LoginService from '../service/login';
 
 export default class LoginController {
   constructor(
-    private loginService: LoginService,
+    private loginService : LoginService,
   ) {}
 
-  login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public login = async (req: Request, res: Response, next: NextFunction): Promise<
+  Response | void> => {
     try {
-      const { email, password } = req.body;
+      const { email } = req.body;
+      // const { email, password } = req.body;
 
       const user = await this.loginService.findUser(email);
 
@@ -18,7 +20,8 @@ export default class LoginController {
       //     return;
       // }
 
-      res.status(200).json({ user, token });
+      return res.status(200).json({ user });
+      // return res.status(200).json({ user, token });
     } catch (e) {
       next(e);
     }
