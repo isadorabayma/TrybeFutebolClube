@@ -11,7 +11,7 @@ const JWT_OPTIONS: jwt.SignOptions = {
 export default class AuthService {
   private static SECRET = fs.readFileSync('jwt.evaluation.key', 'utf8');
 
-  public static async autenticate(email:string, pass:string): Promise<string | null> {
+  public static async authenticate(email:string, pass:string): Promise<string | null> {
     const user = await LoginService.findUser(email);
     if (!user || user.password !== pass) return null;
 
