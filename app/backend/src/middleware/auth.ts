@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
-import LoginService from './login';
+import { Iuser } from '../database/interfaces/Iuser';
 
 const JWT_OPTIONS: jwt.SignOptions = {
   algorithm: 'HS256',
@@ -10,9 +10,8 @@ const JWT_OPTIONS: jwt.SignOptions = {
 export default class AuthService {
   private static SECRET = fs.readFileSync('jwt.evaluation.key', 'utf8');
 
-  public static async authenticate(email:string, pass:string): Promise<string | null> {
-    const user = await LoginService.findUser(email);
-    if (!user || user.password !== pass) return null;
+  public static authenticate(pass:string, user: Iuser): string | null {
+    if (user.password !== pass) return null;
 
     const { password, ...payload } = user;
 

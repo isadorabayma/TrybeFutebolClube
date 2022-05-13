@@ -1,6 +1,7 @@
 import { NextFunction, Response, Request } from 'express';
 import LoginService from '../service/login';
-import AuthService from '../service/auth';
+import LoginRepo from '../repository/login';
+import AuthService from '../middleware/auth';
 
 export default class LoginController {
   public static async login(req: Request, res: Response, next: NextFunction): Promise<
@@ -8,15 +9,21 @@ export default class LoginController {
     try {
       const { email, password } = req.body;
 
-      const user = await LoginService.findUser(email);
-
-      const token = await AuthService.authenticate(email, password);
-      if (!token) {
-        res.status(401).json({ message: 'could not authenticate user' });
+      const user = await LoginRepo.findUser(email);
+      if (!user) {
+        res.status(401).json({ message: 'Incorrect email or password' });
         return;
       }
 
-      return res.status(200).json({ user, token });
+      const token = await AuthService.authenticate(password, user);
+      if (!token) {
+        res.status(401).json({ message: 'Incorrect email or password' });
+        return;
+      }
+
+      const publicUser = LoginService.findUser(email);
+
+      return res.status(200).json({ publicUser, token });
     } catch (e) {
       next(e);
     }

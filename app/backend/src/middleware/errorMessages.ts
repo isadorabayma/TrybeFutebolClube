@@ -4,8 +4,8 @@ export default class ErrorMessages {
     public length?: string,
   ) {}
 
-  public isRequired(): string {
-    return `"${this.field}" is required`;
+  public static isRequired(): string {
+    return 'All fields must be filled';
   }
 
   public isEmpty(): string {
