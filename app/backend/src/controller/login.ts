@@ -26,8 +26,4 @@ export default class LoginController {
       next(e);
     }
   }
-
-  public log(): void {
-    console.log(this.atribut);
-  }
 }

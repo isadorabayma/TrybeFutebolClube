@@ -25,7 +25,8 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
+    this.app.use(express.json());
+    // o que que o CORs faz?
   }
 
   // ...
