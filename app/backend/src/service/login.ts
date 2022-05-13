@@ -1,13 +1,10 @@
-import { IpublicUser } from '../database/interfaces/Iuser';
-import LoginRepo from '../repository/login';
+import { IpublicUser, Iuser } from '../database/interfaces/Iuser';
 
 export default class LoginService {
-  public static async findUser(email: string): Promise<IpublicUser | null> {
-    const user = await LoginRepo.findUser(email);
-    if (!user) return null;
+  public static findUser(fullUser: Iuser): IpublicUser {
+    const { id, username, role, email } = fullUser;
+    const publicUser = { id, username, role, email };
 
-    const { password, ...publicUser } = user;
-
-    return publicUser as IpublicUser;
+    return publicUser;
   }
 }

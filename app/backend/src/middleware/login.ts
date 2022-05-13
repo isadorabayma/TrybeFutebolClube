@@ -7,11 +7,11 @@ export default class LoginMiddleware {
     const emailMessages = new ErrorMessages('email');
 
     if (email === undefined) {
-      return res.status(400).json({ message: ErrorMessages.isRequired });
+      return res.status(400).json({ message: ErrorMessages.isRequired() });
     }
 
     if (email === '') {
-      return res.status(401).json({ message: emailMessages.isEmpty });
+      return res.status(401).json({ message: emailMessages.isEmpty() });
     }
 
     if (!email.match(/\S+@\S+\.\S+/)) {

@@ -9,21 +9,21 @@ export default class LoginController {
     try {
       const { email, password } = req.body;
 
-      const user = await LoginRepo.findUser(email);
-      if (!user) {
+      const fullUser = await LoginRepo.findUser(email);
+      if (!fullUser) {
         res.status(401).json({ message: 'Incorrect email or password' });
         return;
       }
 
-      const token = await AuthService.authenticate(password, user);
+      const token = await AuthService.authenticate(password, fullUser);
       if (!token) {
         res.status(401).json({ message: 'Incorrect email or password' });
         return;
       }
 
-      const publicUser = LoginService.findUser(email);
+      const user = LoginService.findUser(fullUser);
 
-      return res.status(200).json({ publicUser, token });
+      return res.status(200).json({ user, token });
     } catch (e) {
       next(e);
     }
