@@ -1,25 +1,26 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
+import * as fs from 'fs';
 import LoginService from './login';
 
-const SECRET = 'senhasecreta';
-const JWT_OPTIONS: SignOptions = {
+const JWT_OPTIONS: jwt.SignOptions = {
   algorithm: 'HS256',
-  expiresIn: '1d',
+  expiresIn: '24h',
 };
 // const authConfig = config.auth;
 
 export default class AuthService {
+  private static SECRET = fs.readFileSync('jwt.evaluation.key', 'utf8');
+
   public static async autenticate(email:string, pass:string): Promise<string | null> {
     const user = await LoginService.findUser(email);
     if (!user || user.password !== pass) return null;
 
     const { password, ...payload } = user;
 
-    // return jwt.sign(
-    //   payload,
-    //   authConfig.secret,
-    //   authConfig.options as SignOptions,
-    // );
-    return jwt.sign(payload, SECRET, JWT_OPTIONS);
+    return jwt.sign(payload, this.SECRET, JWT_OPTIONS);
+  }
+
+  public static verify(token: string) {
+    return jwt.verify(token, this.SECRET, { algorithms: ['HS256'] });
   }
 }
