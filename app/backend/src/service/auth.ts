@@ -6,7 +6,6 @@ const JWT_OPTIONS: jwt.SignOptions = {
   algorithm: 'HS256',
   expiresIn: '24h',
 };
-// const authConfig = config.auth;
 
 export default class AuthService {
   private static SECRET = fs.readFileSync('jwt.evaluation.key', 'utf8');
