@@ -1,7 +1,7 @@
 export default class ErrorMessages {
   constructor(
     public field: string,
-    public length?: string,
+    public length?: number,
   ) {}
 
   public static isRequired(): string {
