@@ -1,4 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
+import * as bcrypt from 'bcryptjs';
 import LoginService from '../service/login';
 import LoginRepo from '../repository/login';
 import AuthService from '../middleware/auth';
@@ -10,16 +11,11 @@ export default class LoginController {
       const { email, password } = req.body;
 
       const fullUser = await LoginRepo.findUser(email);
-      if (!fullUser) {
-        res.status(401).json({ message: 'Incorrect email or password' });
-        return;
+      if (!fullUser || !(bcrypt.compareSync(password, fullUser.password))) {
+        return res.status(401).json({ message: 'Incorrect email or password' });
       }
 
-      const token = await AuthService.authenticate(password, fullUser);
-      if (!token) {
-        res.status(401).json({ message: 'Incorrect email or password' });
-        return;
-      }
+      const token = AuthService.tokenGenerator(fullUser);
 
       const user = LoginService.findUser(fullUser);
 

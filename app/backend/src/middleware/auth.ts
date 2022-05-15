@@ -10,9 +10,7 @@ const JWT_OPTIONS: jwt.SignOptions = {
 export default class AuthService {
   private static SECRET = fs.readFileSync('jwt.evaluation.key', 'utf8');
 
-  public static authenticate(pass:string, user: Iuser): string | null {
-    if (user.password !== pass) return null;
-
+  public static tokenGenerator(user: Iuser): string {
     const { password, ...payload } = user;
 
     return jwt.sign(payload, this.SECRET, JWT_OPTIONS);
