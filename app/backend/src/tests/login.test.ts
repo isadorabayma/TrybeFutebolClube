@@ -26,10 +26,18 @@ describe('LoginModel', () => {
   }
 
   describe('LoginRepo', () => {
+    beforeEach(sinon.restore);
     it('db findUser fail', () => {
       sinon.stub(User, 'findOne').rejects();
-      expect(LoginRepo.findUser(mockUser.email)).to.eventually.be.rejected;
+      // expect(LoginRepo.findUser(mockUser.email)).to.eventually.be.rejected;
+      expect(LoginRepo.findUser(mockUser.email)).to.eventually.be.equal(null);
     }),
-    it('db findUser ok')
+    it('db findUser ok', () => {
+      sinon.stub(User, 'findOne').resolves(mockUser as User);
+      expect(LoginRepo.findUser(mockUser.email))
+      .to.eventually.be.equal(mockUser);
+    })
   })
+
+  // describe('Login')
 })
