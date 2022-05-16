@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import chaiHttp = require('chai-http');
+// import chaiHttp = require('chai-http');
 // import * as chaiHttp from 'chai-http';
 // import { chaiHttp } from 'chai-http';
 import * as chaiAsPromise from 'chai-as-promised';
@@ -9,13 +9,13 @@ import { describe, it, before, after } from 'mocha';
 // import { app } from '../app';
 import User from '../database/models/User';
 import LoginRepo from '../repository/login';
-import LoginService from '../service/login';
-import LoginController from '../controller/login';
+// import LoginService from '../service/login';
+// import LoginController from '../controller/login';
 
 import { Response } from 'superagent';
 
 chai.use(chaiAsPromise);
-chai.use(chaiHttp);
+// chai.use(chaiHttp);
 
 const { expect } = chai;
 
