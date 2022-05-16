@@ -8,8 +8,8 @@ export default class ErrorMessages {
     return 'All fields must be filled';
   }
 
-  public isEmpty(): string {
-    return `"${this.field}"  is not allowed to be empty`;
+  public static isEmpty(): string {
+    return 'All fields must be filled';
   }
 
   public minLength(): string {
