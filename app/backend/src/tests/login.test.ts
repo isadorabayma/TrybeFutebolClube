@@ -1,16 +1,18 @@
-// import * as sinon from 'sinon';
-// import * as chai from 'chai';
+import * as sinon from 'sinon';
+import * as chai from 'chai';
 // import chaiHttp = require('chai-http');
+import * as chaiAsPromise from 'chai-as-promised';
 import { describe, it, before, after } from 'mocha';
 
 // import { app } from '../app';
-// import User from '../database/models/User';
+import User from '../database/models/User';
+import LoginRepo from '../repository/login';
 
 // import { Response } from 'superagent';
 
-// chai.use(chaiHttp);
+chai.use(chaiAsPromise);
 
-// const { expect } = chai;
+const { expect } = chai;
 
 // let chaiHttpResponse: Response;
 
@@ -24,7 +26,10 @@ describe('LoginModel', () => {
   }
 
   describe('LoginRepo', () => {
-    it('db findUser fail'),
+    it('db findUser fail', () => {
+      sinon.stub(User, 'findOne').rejects();
+      expect(LoginRepo.findUser(mockUser.email)).to.eventually.be.rejected;
+    }),
     it('db findUser ok')
   })
 })
