@@ -1,6 +1,8 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-// import chaiHttp = require('chai-http');
+import chaiHttp = require('chai-http');
+// import * as chaiHttp from 'chai-http';
+// import { chaiHttp } from 'chai-http';
 import * as chaiAsPromise from 'chai-as-promised';
 import { describe, it, before, after } from 'mocha';
 
@@ -10,13 +12,14 @@ import LoginRepo from '../repository/login';
 import LoginService from '../service/login';
 import LoginController from '../controller/login';
 
-// import { Response } from 'superagent';
+import { Response } from 'superagent';
 
 chai.use(chaiAsPromise);
+chai.use(chaiHttp);
 
 const { expect } = chai;
 
-// let chaiHttpResponse: Response;
+let chaiHttpResponse: Response;
 
 describe('LoginModel', () => {
   const mockFullUser = {
