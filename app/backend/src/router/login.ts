@@ -11,6 +11,6 @@ loginRouter.post(
   LoginController.login,
 );
 
-// loginRouter.get('/', LoginController.getRole);
+loginRouter.get('/login/validate', LoginController.getRole);
 
 export default loginRouter;
