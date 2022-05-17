@@ -15,9 +15,9 @@ export default class LoginController {
         return res.status(401).json({ message: 'Incorrect email or password' });
       }
 
-      const token = AuthService.tokenGenerator(fullUser);
-
       const user = LoginService.findUser(fullUser);
+
+      const token = AuthService.tokenGenerator(user);
 
       return res.status(200).json({ user, token });
     } catch (e) {
@@ -34,7 +34,7 @@ export default class LoginController {
 
       const decoded = AuthService.verify(token);
 
-      return res.status(200).json(decoded);
+      return res.status(200).json(decoded.role);
     } catch (e) {
       next(e);
     }
