@@ -1,4 +1,4 @@
-export interface Iuser {
+export interface IfullUser {
   id: number;
   username: string;
   role: string;
@@ -6,7 +6,7 @@ export interface Iuser {
   password: string;
 }
 
-export interface IpublicUser {
+export interface Iuser {
   id: number;
   username: string;
   role: string;
