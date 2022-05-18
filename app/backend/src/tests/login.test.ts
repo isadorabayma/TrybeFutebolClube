@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-// import chaiHttp = require('chai-http');
+import chaiHttp = require('chai-http');
 import * as chaiAsPromise from 'chai-as-promised';
 import { describe, it, before, after } from 'mocha';
 
@@ -12,7 +12,7 @@ import LoginService from '../service/login';
 import { Response } from 'superagent';
 
 chai.use(chaiAsPromise);
-// chai.use(chaiHttp);
+chai.use(chaiHttp);
 
 const { expect } = chai;
 
@@ -53,19 +53,19 @@ describe('LoginModel', () => {
     })
   })
 
-  // describe('LoginContrller', () => {
-  //   beforeEach(sinon.restore);
-  //   it('login no email', async () => {
-  //     sinon.stub(User, 'findOne').resolves(mockFullUser as User);
-  //     chaiHttpResponse = await chai.request(app).post('/login')
-  //     .send({ email: 'admin@admin.com', password: 'secret_admin'})
+  describe('LoginContrller', () => {
+    beforeEach(sinon.restore);
+    it('login no email', async () => {
+      sinon.stub(User, 'findOne').resolves(mockFullUser as User);
+      chaiHttpResponse = await chai.request(app).post('/login')
+      .send({ email: 'admin@admin.com', password: 'secret_admin'})
 
-  //     expect(chaiHttpResponse.status).to.be.equal(200);
-  //     expect(chaiHttpResponse.body).have.property('user');
-  //     expect(chaiHttpResponse.body).have.property('token');
-  //   }),
-  //   it('login wrong password'),
-  //   it('tokenGenerator'),
-  //   it('login ok')
-  // })  
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).have.property('user');
+      expect(chaiHttpResponse.body).have.property('token');
+    }),
+    it('login wrong password'),
+    it('tokenGenerator'),
+    it('login ok')
+  })  
 })
