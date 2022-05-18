@@ -1,5 +1,4 @@
 import * as express from 'express';
-// import TeamMiddleware from '../middleware/team';
 import TeamController from '../controller/team';
 
 const teamRouter = express.Router();
