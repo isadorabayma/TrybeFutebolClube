@@ -6,6 +6,7 @@ export default class TeamController {
   Response | void> {
     try {
       const teamList = await TeamRepo.getAll();
+
       if (!teamList) return res.status(401).json({ message: 'something wrong' });
 
       return res.status(200).json(teamList);

@@ -1,18 +1,22 @@
 import * as express from 'express';
 import loginRouter from './router/login';
+import teamRouter from './router/team';
 // import { copyFileSync } from 'fs';
 
 class App {
   public app: express.Express;
 
-  public router = loginRouter;
+  public loginRouter = loginRouter;
+
+  public teamRouter = teamRouter;
   // ...
 
   constructor() {
     // ...
     this.app = express();
     this.config();
-    this.app.use('/', this.router);
+    this.app.use('/', this.loginRouter);
+    this.app.use('/', this.teamRouter);
     // ...
   }
 
