@@ -17,6 +17,7 @@ class App {
     this.config();
     this.app.use('/', this.loginRouter);
     this.app.use('/', this.teamRouter);
+    this.app.use('/', this.matchesRouter);
     // ...
   }
 
