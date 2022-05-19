@@ -1,6 +1,7 @@
 import * as express from 'express';
 import loginRouter from './router/login';
 import teamRouter from './router/team';
+import matchRouter from './router/matches';
 // import { copyFileSync } from 'fs';
 
 class App {
@@ -9,6 +10,8 @@ class App {
   public loginRouter = loginRouter;
 
   public teamRouter = teamRouter;
+
+  public matchRouter = matchRouter;
   // ...
 
   constructor() {
@@ -17,7 +20,7 @@ class App {
     this.config();
     this.app.use('/', this.loginRouter);
     this.app.use('/', this.teamRouter);
-    this.app.use('/', this.matchesRouter);
+    this.app.use('/', this.matchRouter);
     // ...
   }
 
