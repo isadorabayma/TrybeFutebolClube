@@ -1,7 +1,7 @@
 import * as express from 'express';
 import loginRouter from './router/login';
 import teamRouter from './router/team';
-import matchRouter from './router/matches';
+import matchRouter from './router/match';
 // import { copyFileSync } from 'fs';
 
 class App {
