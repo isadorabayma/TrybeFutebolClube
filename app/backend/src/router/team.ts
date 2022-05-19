@@ -3,7 +3,7 @@ import TeamController from '../controller/team';
 
 const teamRouter = express.Router();
 
-teamRouter.get('/team', TeamController.getAll);
-teamRouter.get('/team/:id', TeamController.getAllById);
+teamRouter.get('/teams', TeamController.getAll);
+teamRouter.get('/teams/:id', TeamController.getAllById);
 
 export default teamRouter;
