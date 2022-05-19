@@ -1,8 +1,8 @@
 import * as express from 'express';
-import TeamController from '../controller/team';
+import MatchController from '../controller/match';
 
 const teamRouter = express.Router();
 
-teamRouter.get('/teams', TeamController.getAll);
+teamRouter.get('/matches', MatchController.getAll);
 
 export default teamRouter;
