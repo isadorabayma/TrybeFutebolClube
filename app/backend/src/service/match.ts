@@ -9,6 +9,13 @@ export default class MatchService {
     if (!matchList) return null;
     return matchList;
   }
+
+  public static async getAllFilter(value: boolean): Promise< Imatch[] | null > {
+    const matchList = await MatchRepo.getAllFilter(value);
+
+    if (!matchList) return null;
+    return matchList;
+  }
 }
 
 // const xxx = await Promise.all(matchList.map((match) => {

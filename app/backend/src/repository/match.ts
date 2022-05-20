@@ -17,4 +17,23 @@ export default class MatchRepo {
 
     return matchList as Imatch[];
   }
+
+  public static async getAllFilter(value: boolean): Promise< Imatch[] | null > {
+  // public static async getAllFilter( parameter, value ): Promise< Imatch[] | null > {
+    const matchList = await Match.findAll(
+      {
+        include: [
+          { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+          { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+        ],
+        where: {
+          inProgress: value,
+        },
+      },
+    );
+
+    if (!matchList) return null;
+
+    return matchList as Imatch[];
+  }
 }
