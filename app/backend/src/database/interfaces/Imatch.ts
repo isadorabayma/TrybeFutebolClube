@@ -21,3 +21,11 @@ export interface IresMatch {
     teamName: string
   }
 }
+
+export interface IreqMatch {
+  homeTeam: number,
+  homeTeamGoals: number,
+  awayTeam: number,
+  awayTeamGoals: number,
+  inProgress: boolean
+}

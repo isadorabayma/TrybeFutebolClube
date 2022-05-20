@@ -19,4 +19,26 @@ export default class MatchController {
       next(error);
     }
   }
+
+  public static async create(req: Request, res: Response, next: NextFunction): Promise<
+  Response | void> {
+    try {
+      const reqMatch = req.body;
+      const createdMatch = await MatchService.create(reqMatch);
+      return res.status(201).json(createdMatch);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public static async finishMatch(req: Request, res: Response, next: NextFunction): Promise<
+  Response | void> {
+    try {
+      const { id } = req.params;
+      await MatchService.finishMatch(id);
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

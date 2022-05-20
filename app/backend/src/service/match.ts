@@ -1,5 +1,4 @@
-// import TeamRepo from '../repository/team';
-import { Imatch } from '../database/interfaces/Imatch';
+import { Imatch, IreqMatch } from '../database/interfaces/Imatch';
 import MatchRepo from '../repository/match';
 
 export default class MatchService {
@@ -16,11 +15,16 @@ export default class MatchService {
     if (!matchList) return null;
     return matchList;
   }
+
+  public static async create(reqMatch: IreqMatch): Promise< Imatch | null > {
+    const matchList = await MatchRepo.create(reqMatch);
+
+    if (!matchList) return null;
+    return matchList;
+  }
+
+  public static async finishMatch(id: string): Promise< void > {
+    const idNumber = parseInt(id, 10);
+    await MatchRepo.finishMatch(idNumber);
+  }
 }
-
-// const xxx = await Promise.all(matchList.map((match) => {
-//   const teamById = TeamRepo.getAllById(String(match.homeTeam));
-//   return teamById;
-// }));
-
-// return xxx as Imatch[];
