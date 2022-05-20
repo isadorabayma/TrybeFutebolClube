@@ -52,9 +52,4 @@ Match.init({
   timestamps: false,
 });
 
-// Matches.associate = (models) => {
-//   Matches.belongsTo(models.Teams, { foreignKey: 'home_team', as: 'home_team' });
-//   Matches.belongsTo(models.Teams, { foreignKey: 'away_team', as: 'away_team' });
-// };
-
 export default Match;
