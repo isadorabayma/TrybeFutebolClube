@@ -27,4 +27,10 @@ export default class MatchService {
     const idNumber = parseInt(id, 10);
     await MatchRepo.finishMatch(idNumber);
   }
+
+  public static async edit(id: string, homeTeamGoals: number, awayTeamGoals: number):
+  Promise< void > {
+    const idNumber = parseInt(id, 10);
+    await MatchRepo.edit(idNumber, homeTeamGoals, awayTeamGoals);
+  }
 }

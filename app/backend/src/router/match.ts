@@ -11,6 +11,7 @@ teamRouter.post(
   MatchMiddleware.isTeamsinDB,
   MatchController.create,
 );
+teamRouter.patch('/matches/:id', MatchController.edit);
 teamRouter.patch('/matches/:id/finish', MatchController.finishMatch);
 
 export default teamRouter;

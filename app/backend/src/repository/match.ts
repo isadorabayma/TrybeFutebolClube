@@ -42,15 +42,29 @@ export default class MatchRepo {
   }
 
   public static async finishMatch(idNumber: number): Promise<void> {
-    // const match = await Match.create({ id: idNumber });
-    // await match.update({ inProgress: false });
-    // await match.save();
     await Match.update(
       {
         inProgress: false,
       },
       {
         where: { id: idNumber },
+      },
+    );
+  }
+
+  public static async edit(id: number, homeTeamGoals: number, awayTeamGoals: number):
+  Promise<void> {
+    // const match = await Match.findByPk(id);
+    // if (match.inProgress) {
+    //   return 'error';
+    // }
+    await Match.update(
+      {
+        homeTeamGoals,
+        awayTeamGoals,
+      },
+      {
+        where: { id },
       },
     );
   }

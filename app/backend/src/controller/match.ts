@@ -42,4 +42,16 @@ export default class MatchController {
       next(error);
     }
   }
+
+  public static async edit(req: Request, res: Response, next: NextFunction): Promise<
+  Response | void> {
+    try {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+      await MatchService.edit(id, homeTeamGoals, awayTeamGoals);
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

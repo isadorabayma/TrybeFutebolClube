@@ -7,7 +7,7 @@ export default class MatchMiddleware {
     const { homeTeam, awayTeam } = reqMatch;
 
     if (homeTeam === awayTeam) {
-      return res.status(401).json({
+      return res.status(404).json({
         message: 'It is not possible to create a match with two equal teams',
       });
     }
@@ -22,7 +22,7 @@ export default class MatchMiddleware {
     const dbAwayTeam = await TeamRepo.getAllById(awayTeam);
 
     if (!dbHomeTeam || !dbAwayTeam) {
-      return res.status(401).json({
+      return res.status(404).json({
         message: 'There is no team with such id!',
       });
     }
