@@ -45,7 +45,6 @@ export default class MatchRepo {
     // const match = await Match.create({ id: idNumber });
     // await match.update({ inProgress: false });
     // await match.save();
-    // console.log('repo', idNumber);
     await Match.update(
       {
         inProgress: false,

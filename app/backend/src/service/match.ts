@@ -25,7 +25,6 @@ export default class MatchService {
 
   public static async finishMatch(id: string): Promise< void > {
     const idNumber = parseInt(id, 10);
-    // console.log('service', idNumber);
     await MatchRepo.finishMatch(idNumber);
   }
 }
