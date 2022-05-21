@@ -24,6 +24,7 @@ export default class MatchController {
   Response | void> {
     try {
       const reqMatch = req.body;
+
       const createdMatch = await MatchService.create(reqMatch);
       return res.status(201).json(createdMatch);
     } catch (error) {
@@ -35,7 +36,6 @@ export default class MatchController {
   Response | void> {
     try {
       const { id } = req.params;
-      // console.log('controler', id);
       await MatchService.finishMatch(id);
       return res.status(200).json({ message: 'Finished' });
     } catch (error) {
