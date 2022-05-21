@@ -22,28 +22,28 @@ Match.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false,
+    // allowNull: false,
     autoIncrement: true,
   },
   homeTeam: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    // allowNull: false,
   },
   homeTeamGoals: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    // allowNull: false,
   },
   awayTeam: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    // allowNull: false,
   },
   awayTeamGoals: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    // allowNull: false,
   },
   inProgress: {
     type: DataTypes.BOOLEAN,
-    allowNull: false,
+    // allowNull: false,
   },
 }, {
   underscored: true,

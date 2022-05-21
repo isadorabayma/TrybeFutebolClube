@@ -41,9 +41,18 @@ export default class MatchRepo {
     return matchCreated as Imatch;
   }
 
-  public static async finishMatch(id: number): Promise<void> {
-    const match = await Match.create({ id });
-    match.inProgress = false;
-    await match.save();
+  public static async finishMatch(idNumber: number): Promise<void> {
+    // const match = await Match.create({ id: idNumber });
+    // await match.update({ inProgress: false });
+    // await match.save();
+    // console.log('repo', idNumber);
+    await Match.update(
+      {
+        inProgress: false,
+      },
+      {
+        where: { id: idNumber },
+      },
+    );
   }
 }

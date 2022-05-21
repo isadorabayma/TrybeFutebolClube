@@ -35,6 +35,7 @@ export default class MatchController {
   Response | void> {
     try {
       const { id } = req.params;
+      // console.log('controler', id);
       await MatchService.finishMatch(id);
       return res.status(200).json({ message: 'Finished' });
     } catch (error) {
