@@ -1,10 +1,11 @@
+import { IleaderMySQL } from '../database/interfaces/Ileader';
 import db from '../database/models';
 
 export default class LeaderboardRepo {
-  public static async getHomeTeams(): Promise<any> {
+  public static async getHomeTeams(): Promise<IleaderMySQL[] | null> {
     const [results] = await db.query(
       `SELECT
-        t.team_name AS Team,
+        t.team_name AS name,
         COUNT(m.home_team_goals) AS J,
         SUM(IF(m.home_team_goals > m.away_team_goals, 1, 0))  AS V,
         SUM(IF(m.home_team_goals = m.away_team_goals, 1, 0))  AS E,
@@ -20,6 +21,6 @@ export default class LeaderboardRepo {
     );
     if (!results) return null;
 
-    return results;
+    return results as unknown as IleaderMySQL[];
   }
 }
