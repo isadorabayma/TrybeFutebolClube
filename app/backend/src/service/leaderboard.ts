@@ -46,12 +46,12 @@ export default class LeaderboardService {
       if (a.totalVictories < b.totalVictories) return -1;
       return 0;
     });
-    const efficiency = V.sort((b, a) => {
-      if (a.efficiency > b.efficiency) return 1;
-      if (a.efficiency < b.efficiency) return -1;
+    const points = V.sort((b, a) => {
+      if (a.totalPoints > b.totalPoints) return 1;
+      if (a.totalPoints < b.totalPoints) return -1;
       return 0;
     });
-    return efficiency;
+    return points;
   }
 
   public static async getHomeTeams(): Promise<IleaderRes[] | null> {
