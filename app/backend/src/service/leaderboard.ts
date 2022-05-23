@@ -1,4 +1,4 @@
-import { IleaderRes } from '../database/interfaces/Ileader';
+import { IleaderMySQL, IleaderRes } from '../database/interfaces/Ileader';
 import LeaderboardRepo from '../repository/leaderboard';
 
 export default class LeaderboardService {
@@ -11,15 +11,6 @@ export default class LeaderboardService {
     const efficiency = Math.round(((points / (J * 3)) * 100) * 100) / 100;
     return efficiency;
   }
-
-  // private static orderBy <T>(array: T, key: string): IleaderRes[] {
-  //   const sorted = array.sort((a, b) => {
-  //     if (a[key] > b[key]) return 1;
-  //     if (a[key] < b[key]) return -1;
-  //     return 0;
-  //   });
-  //   return sorted;
-  // }
 
   private static order(leaderboardList: IleaderRes[]): IleaderRes[] {
     const byGC = leaderboardList.sort((a, b) => {
@@ -54,11 +45,8 @@ export default class LeaderboardService {
     return points;
   }
 
-  public static async getHomeTeams(): Promise<IleaderRes[] | null> {
-    const leaderMySQL = await LeaderboardRepo.getHomeTeams();
-    if (!leaderMySQL) return null;
-
-    const leaderboardList = leaderMySQL.map((team) => {
+  private static createTeamObj(leaderMysqlList: IleaderMySQL[]): IleaderRes[] {
+    const leaderboardList = leaderMysqlList.map((team) => {
       const { name, J, V, E, D, GP, GC, SG } = team;
 
       return {
@@ -75,6 +63,26 @@ export default class LeaderboardService {
       };
     });
 
-    return LeaderboardService.orderTop(LeaderboardService.order(leaderboardList)) as IleaderRes[];
+    return LeaderboardService.orderTop(
+      LeaderboardService.order(leaderboardList),
+    ) as IleaderRes[];
+  }
+
+  public static async getHomeTeams(): Promise<IleaderRes[] | null> {
+    const leaderMySQL = await LeaderboardRepo.getHomeTeams();
+    if (!leaderMySQL) return null;
+
+    const leaderboardList = LeaderboardService.createTeamObj(leaderMySQL);
+
+    return leaderboardList;
+  }
+
+  public static async getAwayTeams(): Promise<IleaderRes[] | null> {
+    const leaderMySQL = await LeaderboardRepo.getAwayTeams();
+    if (!leaderMySQL) return null;
+
+    const leaderboardList = LeaderboardService.createTeamObj(leaderMySQL);
+
+    return leaderboardList;
   }
 }

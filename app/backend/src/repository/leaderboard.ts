@@ -23,4 +23,26 @@ export default class LeaderboardRepo {
 
     return results as unknown as IleaderMySQL[];
   }
+
+  public static async getAwayTeams(): Promise<IleaderMySQL[] | null> {
+    const [results] = await db.query(
+      `SELECT
+        t.team_name AS name,
+        COUNT(m.away_team_goals) AS J,
+        SUM(IF(m.away_team_goals > m.home_team_goals, 1, 0))  AS V,
+        SUM(IF(m.away_team_goals = m.home_team_goals, 1, 0))  AS E,
+        SUM(IF(m.away_team_goals < m.home_team_goals, 1, 0))  AS D,
+        SUM(m.away_team_goals) AS GP,
+        SUM(m.home_team_goals) AS GC,
+        SUM(m.away_team_goals - m.home_team_goals) AS SG
+      FROM TRYBE_FUTEBOL_CLUBE.matches AS m
+      JOIN TRYBE_FUTEBOL_CLUBE.teams AS t
+      ON m.away_team = t.id
+      WHERE m.in_progress='0'
+      GROUP BY t.team_name;`,
+    );
+    if (!results) return null;
+
+    return results as unknown as IleaderMySQL[];
+  }
 }

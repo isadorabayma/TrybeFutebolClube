@@ -7,5 +7,9 @@ leaderboardRouter.get(
   '/leaderboard/home',
   leaderboardController.getHomeTeams,
 );
+leaderboardRouter.get(
+  '/leaderboard/away',
+  leaderboardController.getAwayTeams,
+);
 
 export default leaderboardRouter;
