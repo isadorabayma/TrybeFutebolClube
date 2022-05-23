@@ -4,6 +4,10 @@ export default class ErrorMessages {
     public length?: number,
   ) {}
 
+  public static wrong(): string {
+    return 'something is wrong';
+  }
+
   public static isRequired(): string {
     return 'All fields must be filled';
   }

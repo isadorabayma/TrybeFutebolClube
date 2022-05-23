@@ -85,4 +85,39 @@ export default class LeaderboardService {
 
     return leaderboardList;
   }
+
+  public static createGeneralObj(leaderAway: IleaderRes[], leaderHome: IleaderRes[]): IleaderRes[] {
+    const leaderboardList = leaderHome.map((homeTeam) => {
+      const awayTeam = leaderAway.find((team) => team.name === homeTeam.name);
+
+      if (!awayTeam) return homeTeam;
+      // falta tratar o caso de um time só ter jogado fora de casa
+
+      return {
+        name: homeTeam.name,
+        totalPoints: homeTeam.totalPoints + awayTeam.totalPoints,
+        totalGames: homeTeam.totalGames + awayTeam.totalGames,
+        totalVictories: homeTeam.totalVictories + awayTeam.totalVictories,
+        totalDraws: homeTeam.totalDraws + awayTeam.totalDraws,
+        totalLosses: homeTeam.totalLosses + awayTeam.totalLosses,
+        goalsFavor: homeTeam.goalsFavor + awayTeam.goalsFavor,
+        goalsOwn: homeTeam.goalsOwn + awayTeam.goalsOwn,
+        goalsBalance: homeTeam.goalsBalance + awayTeam.goalsBalance,
+        efficiency: homeTeam.efficiency + awayTeam.efficiency,
+      };
+    });
+
+    return leaderboardList;
+  }
+
+  public static async getTeams(): Promise<IleaderRes[] | null> {
+    const leaderHome = await LeaderboardService.getHomeTeams();
+    const leaderAway = await LeaderboardService.getAwayTeams();
+    if (!leaderHome || !leaderAway) return null;
+
+    const leaderboardList = LeaderboardService
+      .createGeneralObj(leaderAway, leaderHome);
+
+    return leaderboardList;
+  }
 }
