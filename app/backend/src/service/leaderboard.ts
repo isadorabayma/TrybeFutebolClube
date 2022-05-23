@@ -2,11 +2,11 @@ import { IleaderMySQL, IleaderRes } from '../database/interfaces/Ileader';
 import LeaderboardRepo from '../repository/leaderboard';
 
 export default class LeaderboardService {
-  private static calculatePoints(V:string, E:string): number {
+  private static calculatePoints(V:string | number, E:string | number): number {
     return 3 * Number(V) + Number(E);
   }
 
-  private static calculateEfficiency(V:string, E:string, J:number): number {
+  private static calculateEfficiency(V:string | number, E:string | number, J:number): number {
     const points = LeaderboardService.calculatePoints(V, E);
     const efficiency = Math.round(((points / (J * 3)) * 100) * 100) / 100;
     return efficiency;
@@ -103,7 +103,7 @@ export default class LeaderboardService {
         goalsFavor: homeTeam.goalsFavor + awayTeam.goalsFavor,
         goalsOwn: homeTeam.goalsOwn + awayTeam.goalsOwn,
         goalsBalance: homeTeam.goalsBalance + awayTeam.goalsBalance,
-        efficiency: homeTeam.efficiency + awayTeam.efficiency,
+        efficiency: 0,
       };
     });
 
@@ -115,8 +115,16 @@ export default class LeaderboardService {
     const leaderAway = await LeaderboardService.getAwayTeams();
     if (!leaderHome || !leaderAway) return null;
 
-    const leaderboardList = LeaderboardService
+    const leaderboardMissing = LeaderboardService
       .createGeneralObj(leaderAway, leaderHome);
+
+    const leaderboardList = leaderboardMissing.map((team) => {
+      const { efficiency, ...data } = team;
+      const efficiencySum = LeaderboardService
+        .calculateEfficiency(team.totalVictories, team.totalDraws, team.totalGames);
+      const fullTeam = { ...data, efficiency: efficiencySum };
+      return fullTeam;
+    });
 
     return leaderboardList;
   }
