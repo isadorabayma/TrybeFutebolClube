@@ -126,6 +126,8 @@ export default class LeaderboardService {
       return fullTeam;
     });
 
-    return leaderboardList;
+    return LeaderboardService.orderTop(
+      LeaderboardService.order(leaderboardList),
+    ) as IleaderRes[];
   }
 }
