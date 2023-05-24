@@ -1,7 +1,7 @@
 # TFC - Trybe Futbol Club
 
 
-<img src="front-example.png" alt="front-image">
+<img src="front-end.png" alt="front-image">
 
 O projeto simula uma aplicação responsável pela série A do fictício TFC - Trybe Futebol Clube.
 Nesse projeto eu desenvolvi todo o backend e o Banco de Dados, de uma aplicação com o frontend já pronto, modelei os dados com MySQL através do Sequelize, fiz testes de integração utilizando chai/sinon e "dockerizei" a aplicação e "orquestrei" os conteines.
